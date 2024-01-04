@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: workshop-dotnet-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dotnet-core
+  template:
+    metadata:
+      labels:
+        app: dotnet-core
+    spec:
+      containers:
+      - name: dotnet-containers
+        image: nginx
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /app/appsettings.json # เอาไปใส่ใน path ใน container mount nginx-conf volumn to /etc/nginx
+          subPath: appsettings.json # เพื่อจะได้ไม่ทับกับ file อื่น
+          readOnly: true
+          name: appsettings-volume
+      volumes:
+      - name: appsettings-volume
+        configMap:
+          name: appsettings-configmap
+          items:
+            - key: appsettings.json
+              path: appsettings.json
+
