@@ -15,6 +15,6 @@ data:
       },
       "AppConfiguration": {
         "DatabaseHost": "localhost",
-        "ThirdPartyAPIBaseURL" :  "https://local.somewhere.com/"
+        "ThirdPartyAPIBaseURL" :  "https://local.somewhere.com"
       }
     }
